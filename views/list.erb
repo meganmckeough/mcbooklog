@@ -1,0 +1,17 @@
+<div class="mini-header">
+	<div>your 2018 book log</div>
+	<a href="/"><<< Home</a>
+</div>
+
+<a href="/books/new" class="highlight">Finished a book? Add to the stack.</a>
+<p class="click">Click each book for more.</p>
+
+<div class="books-wrapper">
+
+	<% @books.each do |book| %>
+			<a href="/books/<%= book.id %>">
+				<img class="mini" src="<%= book.image_url %>" alt="">
+			</a>
+	<% end %>
+
+</div>

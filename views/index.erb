@@ -1,0 +1,19 @@
+<header>
+	<h1>Your 2018 Book Log</h1>
+</header>
+
+<a href="/books/list" class="highlight">See the full list of finished books!</a>
+
+<section class="stats">
+	<div>Your reading goal: <span><%= @reading_goal %> books</span></div>
+
+
+	<div class="progress-div">
+		<div class="progress-bar" style="width: <%= @progress_bar %>%;"></div>
+		<div><%= @progress_bar %>%</div>
+		<div><%= @books_read %> books read</div>
+	</div>
+</section>
+
+<div class="coming-soon">Unread Shelf coming soon!</div>
+
