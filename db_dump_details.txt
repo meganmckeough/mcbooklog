@@ -1,1 +1,5 @@
 pg_dump -Fc --no-acl --no-owner -h localhost -U Megan booklog2018 > db.dump
+
+
+
+heroku pg:backups:restore 'https://github.com/meganmckeough/mcbooklog/raw/master/db.dump' DATABASE_URL
