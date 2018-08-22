@@ -1,9 +1,26 @@
 require 'sinatra'
-# require 'sinatra/reloader'
+#comment out before push to heroku
+require 'sinatra/reloader'
 require 'pg'
 require 'pry'
 require_relative 'db_config'
 require_relative 'models/book'
+
+enable :sessions
+
+helpers do 
+	def current_user
+		User.find_by(id: session[:user_id])
+	end
+
+	def logged_in?
+		!!current_user
+	end
+end
+
+get '/login' do
+	erb :login
+end
 
 get '/' do
 	@books = Book.all
@@ -14,6 +31,7 @@ get '/' do
 end
 
 get '/books/new' do
+	redirect '/login' unless logged_in?
 	erb :new
 end
 
@@ -23,8 +41,7 @@ get '/books/list' do
 end
 
 post '/books' do
-	# sql = "INSERT INTO dishes (name, image_url) VALUES ('#{ params[:name] }', '#{ params[:image_url] }');"
-	# run_sql(sql)
+	redirect '/login' unless logged_in?
 	book = Book.new
 	book.title = params[:title]
 	book.author = params[:author]
@@ -41,6 +58,7 @@ get '/books/:id' do
 end
 
 get '/books/:id/edit' do
+	redirect '/login' unless logged_in?
 	@book = Book.find(params[:id])
 	erb :edit
 end
@@ -58,6 +76,7 @@ end
 
 
 delete '/books/:id' do
+	redirect '/login' unless logged_in?
 	book = Book.find( params[:id] )
 	book.destroy
 	redirect '/'
